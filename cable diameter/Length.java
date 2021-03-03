@@ -12,6 +12,10 @@ public class Length {
     double result;
     float diameterResult;
     float powerResult;
+    JRadioButton aluminum;
+    JRadioButton copper;
+
+
     static DecimalFormat df2 = new DecimalFormat("#.##");
     public Length()
     {
@@ -24,6 +28,15 @@ public class Length {
         frameDiameter.add(resultShow);
         frameDiameter.add(diameter);
         frameDiameter.add(diameterInformation);
+
+        aluminum = new JRadioButton("Aluminium", false);
+        copper = new JRadioButton("Miedz", true);
+
+        frameDiameter.add(aluminum);
+        frameDiameter.add(copper);
+
+        aluminum.setBounds(50, 25, 200, 30);
+        copper.setBounds(350, 25, 200, 30);
 
         diameter.setBounds(125,100, 200,30);
         diameterInformation.setBounds(125, 50, 250, 30);
@@ -42,16 +55,43 @@ public class Length {
         powerInformation.setBounds(125, 150, 250, 30);
 
         power.setColumns(10);
+
         powerInformation.setText("Podaj moc w kW");
+
+         copper.addActionListener(e -> {
+            
+            if (copper.isSelected()) { 
+                aluminum.setSelected(false);
+            }
+
+            
+        });
+
+        aluminum.addActionListener(e -> {
+            
+            if (aluminum.isSelected()) { 
+                copper.setSelected(false);
+            }
+
+            
+        });
 
         calculate.setBounds(125, 250, 250, 30);
         frameDiameter.add(calculate);
         calculate.addActionListener(e -> {
-            power.setEditable(false);
-            diameter.setEditable(false);
+            
             powerResult = Float.parseFloat(power.getText());
             diameterResult = Float.parseFloat(diameter.getText());
-            result = (Math.pow(400, 2) * 0.01 * diameterResult)/ ( Math.pow(10, 3) * 1.68 * Math.pow(10, -8) * powerResult * Math.pow(10, 6));
+            if (copper.isSelected()) { 
+  
+                    result = (Math.pow(400, 2) * 0.01 * diameterResult)/ ( Math.pow(10, 3) * 1.72 * Math.pow(10, -8) * powerResult * Math.pow(10, 6));
+            } 
+
+            if (aluminum.isSelected()) { 
+  
+                    result = (Math.pow(400, 2) * 0.01 * diameterResult)/ ( Math.pow(10, 3) * 2.82 * Math.pow(10, -8) * powerResult * Math.pow(10, 6));
+            } 
+            
 
 
             resultShow.setText(df2.format(result) + " " + "m");

@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import java.util.logging.Formatter;
 
 public class Diameter {
+	JFrame tmp;
     JFrame frameDiameter;
     JTextField power;
     JLabel powerInformation;

@@ -19,6 +19,9 @@ public class Diameter {
     float lenghtResult;
     JRadioButton aluminum;
     JRadioButton copper;
+    JRadioButton fourHundredV;
+    JRadioButton eightHundredV;
+    int voltage;
 
     static DecimalFormat df2 = new DecimalFormat("#.##");
     public Diameter()
@@ -29,18 +32,28 @@ public class Diameter {
         power = new JTextField();
         powerInformation = new JLabel();
         resultShow = new JLabel();
+
         aluminum = new JRadioButton("Aluminium", false);
         copper = new JRadioButton("Miedz", true);
+
+        fourHundredV = new JRadioButton("400 V", false);
+        eightHundredV = new JRadioButton("800 V", true);
+
         frameDiameter.add(resultShow);
         frameDiameter.add(power);
         frameDiameter.add(powerInformation);
         frameDiameter.add(aluminum);
         frameDiameter.add(copper);
 
+        frameDiameter.add(fourHundredV);
+        frameDiameter.add(eightHundredV);
+
+        fourHundredV.setBounds(50, 50, 200, 30);
+        eightHundredV.setBounds(350, 50, 200, 30);
         aluminum.setBounds(50, 25, 200, 30);
         copper.setBounds(350, 25, 200, 30);
         power.setBounds(125, 100, 200, 30);
-        powerInformation.setBounds(125, 50, 250, 30);
+        powerInformation.setBounds(125, 75, 250, 30);
         resultShow.setBounds(125, 300, 250, 30);
 
         power.setColumns(10);
@@ -79,19 +92,47 @@ public class Diameter {
             
         });
 
+        fourHundredV.addActionListener(e -> {
+            
+            if (fourHundredV.isSelected()) { 
+                eightHundredV.setSelected(false);
+            }
+
+            
+        });
+
+        eightHundredV.addActionListener(e -> {
+            
+            if (eightHundredV.isSelected()) { 
+                fourHundredV.setSelected(false);
+            }
+
+            
+        });
+
         calculate.addActionListener(e -> {
             
             lenghtResult = Float.parseFloat(length.getText());
             powerResult = Float.parseFloat(power.getText());
 
+            if (fourHundredV.isSelected()) { 
+  
+                    voltage = 400;
+            } 
+
+            if (eightHundredV.isSelected()) { 
+  
+                    voltage = 800;
+            } 
+
             if (copper.isSelected()) { 
   
-                    result = (powerResult * Math.pow(10, 3) * 1.72 * Math.pow(10, -8) * lenghtResult * Math.pow(10, 6))/(Math.pow(400, 2)*0.01);
+                    result = (powerResult * Math.pow(10, 3) * 1.72 * Math.pow(10, -8) * lenghtResult * Math.pow(10, 6))/(Math.pow(voltage, 2)*0.01);
             } 
 
             if (aluminum.isSelected()) { 
   
-                    result = (powerResult * Math.pow(10, 3) * 2.82 * Math.pow(10, -8) * lenghtResult * Math.pow(10, 6))/(Math.pow(400, 2)*0.01);
+                    result = (powerResult * Math.pow(10, 3) * 2.82 * Math.pow(10, -8) * lenghtResult * Math.pow(10, 6))/(Math.pow(voltage, 2)*0.01);
             } 
             
 

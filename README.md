@@ -1,2 +1,2 @@
 # helper-in-the-design-of-solar-power-plants
-programs enabling acceleration of work with solar power plant design
+A program to facilitate the correct calculation of cable diameters in solar power plants
